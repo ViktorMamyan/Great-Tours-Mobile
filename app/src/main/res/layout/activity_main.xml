@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="#f2f2f2"
-    tools:context="com.example.greattours.greattourssearcher.MainActivity">
+    tools:context="com.example.greattours.greattours.MainActivity">
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

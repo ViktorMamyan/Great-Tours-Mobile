@@ -1,4 +1,4 @@
-package com.example.greattours.greattourssearcher;
+package com.example.greattours.greattours;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,26 +9,28 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity {
 
     //menu items
-    String[] ListItems={"Փնտրել"
+    String[] ListItems={
+            "Փնտրել"
             ,"Փաթեթների Ցանկ"
             ,"Տաք Տուրեր"
             ,"Վաղ Ամրագրում"
+            ,"Հայտ"
             ,"Ծանուցում"
             ,"Տեսարժան Վայր"
             ,"Հյուրանոց"
             ,"Նախընտրություններ"
-            ,"Հայտ"
+
     };
 
     Integer[] imageId = {R.drawable.searchinpackage
             ,R.drawable.packagelist
             ,R.drawable.hottours
             ,R.drawable.earlybook
+            ,R.drawable.book
             ,R.drawable.notification
             ,R.drawable.place
             ,R.drawable.hotel
             ,R.drawable.favorite
-            ,R.drawable.book
     };
 
     //main menu variable

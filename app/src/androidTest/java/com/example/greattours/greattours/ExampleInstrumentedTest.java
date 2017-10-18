@@ -1,4 +1,4 @@
-package com.example.greattours.greattourssearcher;
+package com.example.greattours.greattours;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
