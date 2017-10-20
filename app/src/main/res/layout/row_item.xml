@@ -1,18 +1,19 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/img"
-        android:src="@drawable/ok"
+        android:id="@+id/imgView"
+        android:src="@drawable/img_ok"
         android:paddingLeft="10dp"
         android:paddingTop="17dp"
         />
+
     <TextView
-        android:id="@+id/txt"
+        android:id="@+id/txtView"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
         android:text="t"

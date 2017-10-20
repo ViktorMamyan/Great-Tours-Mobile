@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2f2f2"
-    android:orientation="vertical"
-    tools:context="am.greattours.mobile.MainActivity">
+    android:orientation="horizontal"
+    tools:context="am.greattours.mobile.AllPackagesActivity">
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +16,7 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/MainListView"
+            android:id="@+id/AllPackageListView"
             android:listSelector="@drawable/lv_selecter"
             />
 

@@ -1,4 +1,4 @@
-package com.example.greattours.greattours;
+package am.greattours.mobile;
 
 import org.junit.Test;
 

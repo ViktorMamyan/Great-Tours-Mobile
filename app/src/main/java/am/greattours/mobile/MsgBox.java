@@ -1,5 +1,4 @@
-package com.example.greattours.greattours;
-
+package am.greattours.mobile;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -34,7 +33,7 @@ public class MsgBox
                 builder.setIcon(R.drawable.question);
                 break;
             default:
-                builder.setIcon(R.drawable.ok);
+                builder.setIcon(R.drawable.img_ok);
         }
         builder.setMessage(message);
 
@@ -61,7 +60,7 @@ public class MsgBox
                 builder.setIcon(R.drawable.question);
                 break;
             default:
-                builder.setIcon(R.drawable.ok);
+                builder.setIcon(R.drawable.img_ok);
         }
 
         builder.setPositiveButton("Այո",
@@ -90,6 +89,5 @@ public class MsgBox
         AlertDialog alert11 = builder.create();
         alert11.show();
     }
-
 
 }
