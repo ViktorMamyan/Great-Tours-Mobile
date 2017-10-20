@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#f2f2f2"
     android:orientation="horizontal"
-    tools:context="am.greattours.mobile.AllPackagesActivity">
+    tools:context="am.greattours.mobile.ActivityAllPackages">
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

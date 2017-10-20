@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainListCustom extends ArrayAdapter<String>
+public class CustomListMain extends ArrayAdapter<String>
 {
 
     private final Activity context;
@@ -17,7 +17,7 @@ public class MainListCustom extends ArrayAdapter<String>
     private final String[] lTitle;
     private final Integer[] lImage;
 
-    public MainListCustom (Activity context, String[] ltitle, Integer[] limage)
+    public CustomListMain(Activity context, String[] ltitle, Integer[] limage)
     {
         super(context, R.layout.row_item, ltitle);
 

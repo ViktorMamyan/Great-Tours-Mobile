@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity
+public class ActivityMain extends AppCompatActivity
 {
     ListView MainListView;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     private void LoadListViewItems()
     {
-        MainListCustom adapter = new MainListCustom(MainActivity.this, ListItems, imageItems);
+        CustomListMain adapter = new CustomListMain(ActivityMain.this, ListItems, imageItems);
         MainListView=(ListView)findViewById(R.id.MainListView);
         MainListView.setAdapter(adapter);
     }
@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
 
-        if (position == 0)
+        if (position == 1)
         {
-            Intent i = new Intent(MainActivity.this, AllPackagesActivity.class);
+            Intent i = new Intent(ActivityMain.this, ActivityAllPackages.class);
             startActivityForResult(i,1);
         }
 
