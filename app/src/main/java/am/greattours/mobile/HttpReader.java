@@ -11,7 +11,6 @@ import java.nio.charset.Charset;
 
 public class HttpReader
 {
-
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;

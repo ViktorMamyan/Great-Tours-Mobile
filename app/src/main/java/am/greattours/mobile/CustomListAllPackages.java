@@ -59,8 +59,8 @@ public class CustomListAllPackages extends ArrayAdapter<String>
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ImageView tourlistitem = (ImageView) rowView.findViewById(R.id.tourlistitem);
-        tourlistitem.setImageBitmap(lPicture);
+        //ImageView tourlistitem = (ImageView) rowView.findViewById(R.id.tourlistitem);
+        //tourlistitem.setImageBitmap(lPicture);
 
         TextView startenddate = (TextView) rowView.findViewById(R.id.startenddate);
         startenddate.setText(startendID[position]);

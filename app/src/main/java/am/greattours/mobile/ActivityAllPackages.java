@@ -10,6 +10,8 @@ import android.widget.ListView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+
 public class ActivityAllPackages extends AppCompatActivity
 {
     String BaseUrl = "http://www.greattours.am";
@@ -19,6 +21,49 @@ public class ActivityAllPackages extends AppCompatActivity
     ListView AllPackageListView;
 
     MsgBox ms = new MsgBox();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_all_packages);
+
+        //back button
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //allow to use internet
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        AllPackageListView = (ListView)findViewById(R.id.AllPckView);
+
+        //On Listview Click Event
+        AllPackageListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+            {
+                MsgBox ms = new MsgBox();
+                ms.ShowMessageBox("OK", String.valueOf(position), MsgBox.MessageIcon.OK, ActivityAllPackages.this);
+            }
+        });
+
+        //Check Json File
+        if (!CheckJsonFile())
+        {
+            MsgBox ms = new MsgBox();
+            ms.ShowMessageBox("Error", "File Error", MsgBox.MessageIcon.OK, ActivityAllPackages.this);
+        }
+        else
+        {
+            MsgBox ms = new MsgBox();
+            ms.ShowMessageBox("OK", "OK", MsgBox.MessageIcon.OK, ActivityAllPackages.this);
+
+            //geting json data from internet
+            //LoadJsonData();
+
+        }
+    }
 
     private void LoadJsonData()
     {
@@ -51,6 +96,8 @@ public class ActivityAllPackages extends AppCompatActivity
                     end_date[i] = obj.getString("end_date");
                     price[i] = obj.getString("price");
                     image[i] = BaseUrl + "/categories/tours/img_377_218/" + obj.getString("thema_image_377x218");
+
+                    //if (i == 1 ) break;
                 }
 
                 CustomListAllPackages adapter = new CustomListAllPackages(ActivityAllPackages.this , title, image, start_date, price);
@@ -70,35 +117,17 @@ public class ActivityAllPackages extends AppCompatActivity
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_packages);
-
-        //back button
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //allow to use internet
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        AllPackageListView = (ListView)findViewById(R.id.AllPckView);
-
-        //On Listview Click Event
-        AllPackageListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+    boolean CheckJsonFile()
+    {
+        File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
+        if (!f_tours_json.exists())
         {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-            {
-                MsgBox ms = new MsgBox();
-                ms.ShowMessageBox("OK", String.valueOf(position), MsgBox.MessageIcon.OK, ActivityAllPackages.this);
-            }
-        });
-
-        //geting json data from internet
-        LoadJsonData();
-
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }
