@@ -9,17 +9,29 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class ActivityMain extends AppCompatActivity
 {
+    private String BaseUrl = "http://www.greattours.am";
+    private String JsonUrl = "/mobile/all_tours_list.json";
+    private String ImgUrl = "/categories/tours/img_377_218/";
 
     private ProgressDialog pd = null;
     private Object data = null;
@@ -70,8 +82,8 @@ public class ActivityMain extends AppCompatActivity
                     ActivityMain.this.pd = ProgressDialog.show(ActivityMain.this, "Կատարվում է գործողություն", "Բազայի թարմացում...", true, false);
                     new DownloadTask().execute("Any parameters my download task needs here");
 
-                    Intent i = new Intent(ActivityMain.this, ActivityAllPackages.class);
-                    startActivityForResult(i,1);
+                    //Intent i = new Intent(ActivityMain.this, ActivityAllPackages.class);
+                    //startActivityForResult(i,1);
                 }
             }
         });
@@ -82,39 +94,45 @@ public class ActivityMain extends AppCompatActivity
 
     private class DownloadTask extends AsyncTask<String, Void, Object> {
         protected Object doInBackground(String... args) {
-            //web json file url
-            String BaseUrl = "http://www.greattours.am";
-            String JsonUrl = "/mobile/all_tours_list.json";
-
-            //local folder name
             File f_dir = new File(getCacheDir(),File.separator + "tours/");
-            if (!f_dir.exists()) { f_dir.mkdirs(); }
-
-            //local json file
             File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
+
+            if (!f_dir.exists()) { f_dir.mkdirs(); }
             if (f_tours_json.exists()) { f_tours_json.delete(); }
 
-            //load json file
-            LoadJsonFromInternet(BaseUrl + JsonUrl,f_tours_json);
+            if(!SaveFileFromInternetToLocal(BaseUrl + JsonUrl,f_tours_json))
+            {
+                return "";
+            }
 
-            //read local json file & loade image files
+            String[] image = ReadJsonFromLocal();
+            if (image == null)
+            {
+                return "";
+            }
 
+            for (int i = 0; i < image.length; i++)
+            {
+                File img_file = new File(getCacheDir(),File.separator + "tours/" + image[i]);
+                if (!img_file.exists())
+                {
+                    SaveFileFromInternetToLocal(BaseUrl + ImgUrl + image[i],img_file);
+                }
+            }
 
-
-
-            ///////////////////////////////////////////////////////////
-
+            Intent i = new Intent(ActivityMain.this, ActivityAllPackages.class);
+            startActivityForResult(i,1);
 
             return "Գործողությունը կատարվեց";
         }
 
-        void LoadJsonFromInternet(String source,File destination)
+        boolean SaveFileFromInternetToLocal(String source,File destination)
         {
             try
             {
                 URL url = new URL(source);
-                URLConnection conexion = url.openConnection();
-                conexion.connect();
+                URLConnection connection = url.openConnection();
+                connection.connect();
 
                 InputStream input = new BufferedInputStream(url.openStream());
                 OutputStream output = new FileOutputStream(destination);
@@ -132,7 +150,101 @@ public class ActivityMain extends AppCompatActivity
                 output.flush();
                 output.close();
                 input.close();
-            } catch (Exception e) {}
+
+                return true;
+            } catch (Exception e) { return false; }
+        }
+
+        String LoadLocalJsonFile(File JsonFile)
+        {
+            String json = null;
+            try {
+
+                StringBuilder text = new StringBuilder();
+                BufferedReader br = new BufferedReader(new FileReader(JsonFile));
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    text.append(line);
+                    text.append('\n');
+                }
+                br.close();
+
+                json = text.toString();
+
+                return json;
+            }
+            catch (Exception e)
+            {
+                return e.getMessage();
+            }
+        }
+
+        String[] ReadJsonFromLocal()
+        {
+            File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
+            String JsonContent = LoadLocalJsonFile(f_tours_json);
+
+            if (JsonContent == null) return null;
+
+            try
+            {
+                JSONArray jsonarray = new JSONArray(JsonContent);
+
+                int JsonLen = jsonarray.length();
+
+                List<String> ImageList = new ArrayList<String>();
+
+                if(JsonLen > 0)
+                {
+                    for(int i = 0; i < JsonLen; i++)
+                    {
+                        JSONObject obj = jsonarray.getJSONObject(i);
+
+                        String end_date = obj.getString("end_date");
+
+                        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                        Date EndDate = format.parse(end_date);
+
+                        if(CompareDates(EndDate))
+                        {
+                            ImageList.add(obj.getString("thema_image_377x218"));
+                        }
+                    }
+
+                    String[] image = new String[ImageList.size()];
+
+                    for(int i = 0; i < ImageList.size(); i++)
+                    {
+                        image[i] = ImageList.get(i);
+                    }
+
+                    return image;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        boolean CompareDates(Date EndDate)
+        {
+            Date CurrentDate = new Date(System.currentTimeMillis());
+
+            if(!EndDate.before(CurrentDate))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         protected void onPostExecute(Object result) {
@@ -143,6 +255,7 @@ public class ActivityMain extends AppCompatActivity
                 ActivityMain.this.pd.dismiss();
             }
         }
+
     }
 
 }
