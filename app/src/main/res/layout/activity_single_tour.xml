@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="am.greattours.mobile.ActivitySingleTour">
+
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="21dp"
+            android:id="@+id/single_title"
+            android:text="text title"
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:textColor="#FF0000" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="450px"
+                android:id="@+id/single_tourlistitem"
+                android:src="@drawable/tourlist" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:id="@+id/single_startenddate"
+                android:text="start end date"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:textColor="#333300" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="24dp"
+                android:id="@+id/single_durationprice"
+                android:text="duration and price"
+                android:textSize="17dp"
+                android:textAlignment="center"
+                android:textColor="#333300" />
+
+            <Button
+                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:id="@+id/btncall"
+                android:text="Հետաքրքրե՞ց, Զանգահարել"
+                android:textAllCaps="false"
+                />
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/webbrowser"
+                />
+
+        </LinearLayout>
+</android.support.constraint.ConstraintLayout>

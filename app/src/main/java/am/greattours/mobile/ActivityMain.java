@@ -36,6 +36,8 @@ public class ActivityMain extends AppCompatActivity
     private ProgressDialog pd = null;
     private Object data = null;
 
+    MsgBox ms = new MsgBox();
+
     ListView MainListView;
 
     String[] ListItems={
@@ -79,7 +81,7 @@ public class ActivityMain extends AppCompatActivity
             {
                 if (position == 1)
                 {
-                    ActivityMain.this.pd = ProgressDialog.show(ActivityMain.this, "Կատարվում է գործողություն", "Բազայի թարմացում...", true, false);
+                    ActivityMain.this.pd = ProgressDialog.show(ActivityMain.this, "Կատարվում է ...", "Բազայի թարմացում", true, false);
                     new DownloadTask().execute("Any parameters my download task needs here");
 
                     //Intent i = new Intent(ActivityMain.this, ActivityAllPackages.class);

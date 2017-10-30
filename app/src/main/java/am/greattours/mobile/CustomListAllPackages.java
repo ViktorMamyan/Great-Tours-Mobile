@@ -45,7 +45,6 @@ public class CustomListAllPackages extends ArrayAdapter<String>
             ImageView tourlistitem = (ImageView) rowView.findViewById(R.id.tourlistitem);
             Bitmap B = BitmapFactory.decodeFile(imageID[position].getAbsolutePath());
             tourlistitem.setImageBitmap(B);
-
         }
 
         TextView startenddate = (TextView) rowView.findViewById(R.id.startenddate);

@@ -1,5 +1,6 @@
 package am.greattours.mobile;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,18 @@ public class ActivityAllPackages extends AppCompatActivity
 {
    private String BaseUrl = "http://www.greattours.am";
    private String JsonUrl = "/mobile/all_tours_list.json";
+
+    List<Integer> TourIdList = new ArrayList<Integer>();
+    List<String> TitleList = new ArrayList<String>();
+    List<String> DaysList = new ArrayList<String>();
+    List<String> NightsList = new ArrayList<String>();
+    List<Integer> EarlyBookList = new ArrayList<Integer>();
+    List<Integer> HotLIst = new ArrayList<Integer>();
+    List<String> StartDateList = new ArrayList<String>();
+    List<String> EndDateList = new ArrayList<String>();
+    List<String> PriceList = new ArrayList<String>();
+    List<String> ImageList = new ArrayList<String>();
+    List<String> ContentList = new ArrayList<String>();
 
     //ListView declaration
     ListView AllPackageListView;
@@ -50,8 +63,26 @@ public class ActivityAllPackages extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
-                MsgBox ms = new MsgBox();
-                ms.ShowMessageBox("OK", String.valueOf(position), MsgBox.MessageIcon.OK, ActivityAllPackages.this);
+                //MsgBox ms = new MsgBox();
+                //ms.ShowMessageBox("OK", TitleList.get(position), MsgBox.MessageIcon.OK, ActivityAllPackages.this);
+
+                Intent i = new Intent(ActivityAllPackages.this, ActivitySingleTour.class);
+
+                i.putExtra("TourId", TourIdList.get(position));
+                i.putExtra("Title", TitleList.get(position));
+                i.putExtra("Days", DaysList.get(position));
+                i.putExtra("Nights", NightsList.get(position));
+                i.putExtra("Early", EarlyBookList.get(position));
+                i.putExtra("Hot", HotLIst.get(position));
+                i.putExtra("StartDate", StartDateList.get(position));
+                i.putExtra("EndDate", EndDateList.get(position));
+                i.putExtra("Price", PriceList.get(position));
+                i.putExtra("Image", ImageList.get(position));
+                i.putExtra("Content", ContentList.get(position));
+
+                //startActivityForResult(i, 1);
+                startActivity(i);
+
             }
         });
 
@@ -73,14 +104,17 @@ public class ActivityAllPackages extends AppCompatActivity
 
             int JsonLen = jsonarray.length();
 
-            List<Integer> TourIdList = new ArrayList<Integer>();
-            List<String> TitleList = new ArrayList<String>();
-            List<String> DaysList = new ArrayList<String>();
-            List<String> NightsList = new ArrayList<String>();
-            List<String> StartDateList = new ArrayList<String>();
-            List<String> EndDateList = new ArrayList<String>();
-            List<String> PriceList = new ArrayList<String>();
-            List<String> ImageList = new ArrayList<String>();
+            TourIdList.clear();
+            TitleList.clear();
+            DaysList.clear();
+            NightsList.clear();
+            EarlyBookList.clear();
+            HotLIst.clear();
+            StartDateList.clear();
+            EndDateList.clear();
+            PriceList.clear();
+            ImageList.clear();
+            ContentList.clear();
 
             if(JsonLen > 0)
             {
@@ -102,6 +136,9 @@ public class ActivityAllPackages extends AppCompatActivity
                         EndDateList.add(obj.getString("end_date"));
                         PriceList.add(obj.getString("price"));
                         ImageList.add(obj.getString("thema_image_377x218"));
+                        EarlyBookList.add(obj.getInt("early_book"));
+                        HotLIst.add(obj.getInt("hot"));
+                        ContentList.add(obj.getString("content"));
                     }
                 }
 
@@ -113,6 +150,11 @@ public class ActivityAllPackages extends AppCompatActivity
                 String[] end_date = new String[TourIdList.size()];
                 String[] price = new String[TourIdList.size()];
                 File[] image = new File[TourIdList.size()];
+                Integer[] earlybook = new Integer[TourIdList.size()];
+                Integer[] hot = new Integer[TourIdList.size()];
+                String[] content = new String[TourIdList.size()];
+
+                String[] startenddates = new String[TourIdList.size()];
 
                 for(int i = 0; i < ImageList.size(); i++)
                 {
@@ -124,20 +166,26 @@ public class ActivityAllPackages extends AppCompatActivity
                     end_date[i] = EndDateList.get(i);
                     price[i] = PriceList.get(i);
                     image[i] = new File(getCacheDir(),File.separator + "tours/" + ImageList.get(i));
+                    earlybook[i] = EarlyBookList.get(i);
+                    hot[i] = HotLIst.get(i);
+                    content[i] = ContentList.get(i);
+
+                    startenddates[i] =start_date[i] + " - " + end_date[i];
                 }
 
-                CustomListAllPackages adapter = new CustomListAllPackages(ActivityAllPackages.this , title, image, start_date, price);
+                CustomListAllPackages adapter = new CustomListAllPackages(ActivityAllPackages.this ,
+                        title, image, startenddates, price);
                 AllPackageListView.setAdapter(adapter);
             }
             else
             {
-                ms.ShowMessageBox("Տվյալները չեն ստացվել", "Հաղորդագրություն" , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
+                ms.ShowMessageBox("Հաղորդագրություն", "Տվյալները չեն ստացվել" , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
             }
 
         }
         catch (Exception e) {
-            //ms.ShowMessageBox("Տեղի է ունեցել սխալ", "Տվյալները կարդալու ժամանակ տեղի է ունեցել սխալ" , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
-            ms.ShowMessageBox("Error", e.getMessage() , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
+            ms.ShowMessageBox("Տեղի է ունեցել սխալ", "Տվյալները կարդալու ժամանակ տեղի է ունեցել սխալ" , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
+            //ms.ShowMessageBox("Error", e.getMessage() , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
         }
     }
 
