@@ -49,7 +49,7 @@ public class ActivityMain extends AppCompatActivity
             ,"Ծանուցում"
             ,"Տեսարժան Վայր"
             ,"Հյուրանոց"
-            ,"Նախընտրություններ"};
+            ,"Թարմացնել Բազան"};
 
     Integer[] imageItems = {R.drawable.searchinpackage
             ,R.drawable.packagelist
@@ -59,7 +59,7 @@ public class ActivityMain extends AppCompatActivity
             ,R.drawable.notification
             ,R.drawable.place
             ,R.drawable.hotel
-            ,R.drawable.favorite};
+            ,R.drawable.update};
 
     private void LoadListViewItems()
     {
@@ -79,14 +79,42 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
-                if (position == 1)
+
+                if (position == 0)          //search tours
+                {
+                    File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
+                    if (!f_tours_json.exists())
+                    {
+                        ms.ShowMessageBox("Գործողությունը դադարեցվել է", "Անհրաժեշտ է բազայի թարմացում", MsgBox.MessageIcon.OK, ActivityMain.this);
+                    }
+                    else
+                    {
+                        Intent i = new Intent(ActivityMain.this, ActivitySearch.class);
+                        startActivity(i);
+                    }
+                }
+                else if (position == 1)     //tours
+                {
+                    File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
+                    if (!f_tours_json.exists())
+                    {
+                        ms.ShowMessageBox("Գործողությունը դադարեցվել է", "Անհրաժեշտ է բազայի թարմացում", MsgBox.MessageIcon.OK, ActivityMain.this);
+                    }
+                    else
+                    {
+                        Intent i = new Intent(ActivityMain.this, ActivityAllPackages.class);
+                        startActivity(i);
+                    }
+                }
+
+
+
+                else if (position == 8)     //update
                 {
                     ActivityMain.this.pd = ProgressDialog.show(ActivityMain.this, "Կատարվում է ...", "Բազայի թարմացում", true, false);
-                    new DownloadTask().execute("Any parameters my download task needs here");
-
-                    //Intent i = new Intent(ActivityMain.this, ActivityAllPackages.class);
-                    //startActivityForResult(i,1);
+                    new UpdateTask().execute("Any parameters download task needs here");
                 }
+
             }
         });
 
@@ -94,7 +122,8 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
-    private class DownloadTask extends AsyncTask<String, Void, Object> {
+    private class UpdateTask extends AsyncTask<String, Void, Object> {
+
         protected Object doInBackground(String... args) {
             File f_dir = new File(getCacheDir(),File.separator + "tours/");
             File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
@@ -122,14 +151,10 @@ public class ActivityMain extends AppCompatActivity
                 }
             }
 
-            Intent i = new Intent(ActivityMain.this, ActivityAllPackages.class);
-            startActivityForResult(i,1);
-
             return "Գործողությունը կատարվեց";
         }
 
-        boolean SaveFileFromInternetToLocal(String source,File destination)
-        {
+        boolean SaveFileFromInternetToLocal(String source,File destination) {
             try
             {
                 URL url = new URL(source);
@@ -157,8 +182,7 @@ public class ActivityMain extends AppCompatActivity
             } catch (Exception e) { return false; }
         }
 
-        String LoadLocalJsonFile(File JsonFile)
-        {
+        String LoadLocalJsonFile(File JsonFile) {
             String json = null;
             try {
 
@@ -182,8 +206,7 @@ public class ActivityMain extends AppCompatActivity
             }
         }
 
-        String[] ReadJsonFromLocal()
-        {
+        String[] ReadJsonFromLocal() {
             File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
             String JsonContent = LoadLocalJsonFile(f_tours_json);
 
@@ -235,8 +258,7 @@ public class ActivityMain extends AppCompatActivity
             }
         }
 
-        boolean CompareDates(Date EndDate)
-        {
+        boolean CompareDates(Date EndDate) {
             Date CurrentDate = new Date(System.currentTimeMillis());
 
             if(!EndDate.before(CurrentDate))
