@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -49,7 +53,8 @@ public class ActivityMain extends AppCompatActivity
             ,"Ծանուցում"
             ,"Տեսարժան Վայր"
             ,"Հյուրանոց"
-            ,"Թարմացնել Բազան"};
+            ,"Թարմացնել Բազան"
+            ,"Ջնջել Քեշը"};
 
     Integer[] imageItems = {R.drawable.searchinpackage
             ,R.drawable.packagelist
@@ -59,7 +64,8 @@ public class ActivityMain extends AppCompatActivity
             ,R.drawable.notification
             ,R.drawable.place
             ,R.drawable.hotel
-            ,R.drawable.update};
+            ,R.drawable.update
+            ,R.drawable.clean};
 
     private void LoadListViewItems()
     {
@@ -109,11 +115,20 @@ public class ActivityMain extends AppCompatActivity
 
 
 
+
+
+
                 else if (position == 8)     //update
                 {
                     ActivityMain.this.pd = ProgressDialog.show(ActivityMain.this, "Կատարվում է ...", "Բազայի թարմացում", true, false);
                     new UpdateTask().execute("Any parameters download task needs here");
                 }
+                else if (position == 9)     //clean
+                {
+                    ActivityMain.this.pd = ProgressDialog.show(ActivityMain.this, "Կատարվում է ...", "Քեշի մաքրում", true, false);
+                    new CleanTask().execute("Any parameters download task needs here");
+                }
+
 
             }
         });
@@ -275,11 +290,57 @@ public class ActivityMain extends AppCompatActivity
             // Pass the result data back to the main activity
             ActivityMain.this.data = result;
 
+            Toast.makeText(ActivityMain.this, "Թարմացումը ավարտվել է", Toast.LENGTH_LONG).show();
+
             if (ActivityMain.this.pd != null) {
                 ActivityMain.this.pd.dismiss();
             }
         }
 
     }
+
+    private class CleanTask extends AsyncTask<String, Void, Object> {
+
+        protected Object doInBackground(String... args) {
+            File f_dir = new File(getCacheDir(),File.separator + "tours/");
+
+            if (f_dir.exists())
+            {
+                try {
+                    FileUtils.deleteDirectory(f_dir);
+                } catch (IOException e) {
+                }
+            }
+
+            return "Գործողությունը կատարվեց";
+        }
+
+        protected void onPostExecute(Object result) {
+            // Pass the result data back to the main activity
+            ActivityMain.this.data = result;
+
+            Toast.makeText(ActivityMain.this, "Քեշը ջնջվեց", Toast.LENGTH_LONG).show();
+
+            if (ActivityMain.this.pd != null) {
+                ActivityMain.this.pd.dismiss();
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

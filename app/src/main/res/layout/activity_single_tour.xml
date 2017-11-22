@@ -48,10 +48,13 @@
 
             <Button
                 android:layout_height="45dp"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:id="@+id/btncall"
-                android:text="Հետաքրքրե՞ց, Զանգահարել"
+                android:text="Զանգահարել"
                 android:textAllCaps="false"
+                android:background="#FFA500"
+                android:layout_gravity="center"
+                android:textSize="20dp"
                 />
 
             <WebView
