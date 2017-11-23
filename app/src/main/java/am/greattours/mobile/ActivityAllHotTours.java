@@ -1,9 +1,10 @@
 package am.greattours.mobile;
 
-import android.content.Intent;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.content.Intent;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,8 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ActivityAllPackages extends AppCompatActivity
-{
+public class ActivityAllHotTours extends AppCompatActivity {
 
     List<Integer> TourIdList = new ArrayList<Integer>();
     List<String> TitleList = new ArrayList<String>();
@@ -43,7 +43,7 @@ public class ActivityAllPackages extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_packages);
+        setContentView(R.layout.activity_all_hot_tours);
 
         //back button
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -55,6 +55,7 @@ public class ActivityAllPackages extends AppCompatActivity
 
         AllPackageListView = (ListView)findViewById(R.id.AllPckView);
 
+
         //On Listview Click Event
         AllPackageListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -64,7 +65,7 @@ public class ActivityAllPackages extends AppCompatActivity
                 //MsgBox ms = new MsgBox();
                 //ms.ShowMessageBox("OK", TitleList.get(position), MsgBox.MessageIcon.OK, ActivityAllPackages.this);
 
-                Intent i = new Intent(ActivityAllPackages.this, ActivitySingleTour.class);
+                Intent i = new Intent(ActivityAllHotTours.this, ActivitySingleHotTour.class);
 
                 i.putExtra("TourId", TourIdList.get(position));
                 i.putExtra("Title", TitleList.get(position));
@@ -124,7 +125,7 @@ public class ActivityAllPackages extends AppCompatActivity
                     DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     Date EndDate = format.parse(end_date);
 
-                    if(CompareDates(EndDate))
+                    if(CompareDates(EndDate) && obj.getInt("hot") == 1)
                     {
                         TourIdList.add(obj.getInt("tour_id"));
                         TitleList.add(obj.getString("title"));
@@ -171,18 +172,18 @@ public class ActivityAllPackages extends AppCompatActivity
                     startenddates[i] =start_date[i] + " - " + end_date[i];
                 }
 
-                CustomListAllPackages adapter = new CustomListAllPackages(ActivityAllPackages.this ,
+                CustomListAllPackages adapter = new CustomListAllPackages(ActivityAllHotTours.this ,
                         title, image, startenddates, price);
                 AllPackageListView.setAdapter(adapter);
             }
             else
             {
-                ms.ShowMessageBox("Հաղորդագրություն", "Տվյալները չեն ստացվել" , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
+                ms.ShowMessageBox("Հաղորդագրություն", "Տվյալները չեն ստացվել" , MsgBox.MessageIcon.Error, ActivityAllHotTours.this);
             }
 
         }
         catch (Exception e) {
-            ms.ShowMessageBox("Տեղի է ունեցել սխալ", "Տվյալները կարդալու ժամանակ տեղի է ունեցել սխալ" , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
+            ms.ShowMessageBox("Տեղի է ունեցել սխալ", "Տվյալները կարդալու ժամանակ տեղի է ունեցել սխալ" , MsgBox.MessageIcon.Error, ActivityAllHotTours.this);
             //ms.ShowMessageBox("Error", e.getMessage() , MsgBox.MessageIcon.Error, ActivityAllPackages.this);
         }
     }

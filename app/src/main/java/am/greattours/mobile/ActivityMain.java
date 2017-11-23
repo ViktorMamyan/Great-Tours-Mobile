@@ -112,8 +112,32 @@ public class ActivityMain extends AppCompatActivity
                         startActivity(i);
                     }
                 }
-
-
+                else if (position == 2)     //hot tours
+                {
+                    File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
+                    if (!f_tours_json.exists())
+                    {
+                        ms.ShowMessageBox("Գործողությունը դադարեցվել է", "Անհրաժեշտ է բազայի թարմացում", MsgBox.MessageIcon.OK, ActivityMain.this);
+                    }
+                    else
+                    {
+                        Intent i = new Intent(ActivityMain.this, ActivityAllHotTours.class);
+                        startActivity(i);
+                    }
+                }
+                else if (position == 3)     //early tours
+                {
+                    File f_tours_json = new File(getCacheDir(),File.separator + "tours/tours.json");
+                    if (!f_tours_json.exists())
+                    {
+                        ms.ShowMessageBox("Գործողությունը դադարեցվել է", "Անհրաժեշտ է բազայի թարմացում", MsgBox.MessageIcon.OK, ActivityMain.this);
+                    }
+                    else
+                    {
+                        Intent i = new Intent(ActivityMain.this, ActivityAllEarlyTours.class);
+                        startActivity(i);
+                    }
+                }
 
 
 
