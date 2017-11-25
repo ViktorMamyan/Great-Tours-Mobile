@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="am.greattours.mobile.ActivityTourRequest">
+
+    <ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1" android:scrollbars="none" tools:layout_editor_absoluteX="0dp" tools:layout_editor_absoluteY="0dp">
+
+        <TableLayout android:layout_width="fill_parent" android:layout_height="fill_parent" tools:layout_editor_absoluteX="8dp" tools:layout_editor_absoluteY="8dp">
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Անուն Ազգանուն" />
+
+                <EditText android:layout_marginTop="10px" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" :layout_height="55px" android:layout_marginTop="10px" android:text="Էլ Փոստ" />
+
+                <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:ems="10" android:inputType="textEmailAddress" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Հեռախոս" />
+
+                <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:ems="10" android:inputType="phone" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Երկիր (Վայր)" />
+
+                <EditText android:layout_marginTop="10px" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Անձանց Քանակ" />
+
+                <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:ems="10" android:inputType="number" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Երեխաների Քանակ" />
+
+                <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:ems="10" android:inputType="number" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Երեխաների Տարիք" />
+
+                <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:ems="10" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Տուրի սկիզբ" />
+
+                <EditText android:id="@+id/dtStartDate" android:focusable="false" android:clickable="true" android:editable="false" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Տուրի ավարտ" />
+
+                <EditText android:id="@+id/dtEndDate" android:focusable="false" android:clickable="true" android:editable="false" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:layout_width="match_parent" android:layout_height="55px" android:layout_marginTop="10px" android:text="Մեկնաբանություն" />
+
+                <EditText android:layout_width="wrap_content" android:layout_height="wrap_content" android:ems="10" android:inputType="textMultiLine" />
+
+            </TableRow>
+
+            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+                <TextView android:height="80px" />
+
+                <Button android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="#FFA500" android:text="Ուղարկել" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

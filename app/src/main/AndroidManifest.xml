@@ -48,8 +48,13 @@
             android:name=".ActivityAllEarlyTours"
             android:parentActivityName=".ActivityMain"
             android:screenOrientation="portrait" />
-        <activity android:name=".ActivitySingleEarlyTour"
+        <activity
+            android:name=".ActivitySingleEarlyTour"
             android:parentActivityName=".ActivityAllEarlyTours"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityTourRequest"
+            android:parentActivityName=".ActivityMain"
             android:screenOrientation="portrait" />
     </application>
 

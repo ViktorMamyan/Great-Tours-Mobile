@@ -46,17 +46,18 @@ public class ActivityMain extends AppCompatActivity
 
     String[] ListItems={
             "Փնտրել"
-            ,"Փաթեթների Ցանկ"
+            ,"Տուր Փաթեթներ"
             ,"Տաք Տուրեր"
             ,"Վաղ Ամրագրում"
-            ,"Հայտ"
+            ,"Հայտի Հարցում"
             ,"Ծանուցում"
             ,"Տեսարժան Վայր"
             ,"Հյուրանոց"
             ,"Թարմացնել Բազան"
             ,"Ջնջել Քեշը"};
 
-    Integer[] imageItems = {R.drawable.searchinpackage
+    Integer[] imageItems = {
+             R.drawable.searchinpackage
             ,R.drawable.packagelist
             ,R.drawable.hottours
             ,R.drawable.earlybook
@@ -138,7 +139,11 @@ public class ActivityMain extends AppCompatActivity
                         startActivity(i);
                     }
                 }
-
+                else if (position == 4)     //tour request
+                {
+                    Intent i = new Intent(ActivityMain.this, ActivityTourRequest.class);
+                    startActivity(i);
+                }
 
 
 
@@ -351,20 +356,5 @@ public class ActivityMain extends AppCompatActivity
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
